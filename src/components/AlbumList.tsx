@@ -1,76 +1,80 @@
-import React, { useEffect, useState, useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
-import { Album } from "../types.d";
-import { motion, AnimatePresence } from "framer-motion";
-import LazySpotifyIframe from "./LazySpotifyIframe";
-import HonorableMentions from "./HonorableMentions"; // Import the new component
+import React, { useEffect, useState, useMemo } from 'react'
+import { useSearchParams } from 'react-router-dom'
+import { Album } from '../types.d'
+import { motion, AnimatePresence } from 'framer-motion'
+import LazySpotifyIframe from './LazySpotifyIframe'
+import HonorableMentions from './HonorableMentions' // Import the new component
 
-import "../styles.css";
+import '../styles.css'
 
 interface AlbumListProps {
-  albums: Album[];
-  recommendations: { rank: number; reason: string }[];
+  albums: Album[]
+  recommendations: { rank: number; reason: string }[]
 }
 
 const AlbumList: React.FC<AlbumListProps> = ({ albums, recommendations }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const reversedAlbums = [...albums].reverse();
-  const [selectedAlbum, setSelectedAlbum] = useState<Album>(reversedAlbums[0]); // Default to the first album
-  const [recommendation, setRecommendation] = useState<string>("");
-  const albumIndex = searchParams.get("album")
+  const [searchParams, setSearchParams] = useSearchParams()
+  const reversedAlbums = [...albums].reverse()
+  const [selectedAlbum, setSelectedAlbum] = useState<Album>(reversedAlbums[0]) // Default to the first album
+  const [recommendation, setRecommendation] = useState<string>('')
+  const albumIndex = searchParams.get('album')
 
-  
-
-  
   useEffect(() => {
     // Extract the album index from the query parameter
-    const albumIndex = parseInt(searchParams.get("album") || "0", 10);
+    const albumIndex = parseInt(searchParams.get('album') || '0', 10)
 
-    if (!isNaN(albumIndex) && albumIndex >= 0 && albumIndex < reversedAlbums.length) {
-      setSelectedAlbum(reversedAlbums[albumIndex]);
+    if (
+      !isNaN(albumIndex) &&
+      albumIndex >= 0 &&
+      albumIndex < reversedAlbums.length
+    ) {
+      setSelectedAlbum(reversedAlbums[albumIndex])
 
-      const matchingRecommendation = recommendations[24-albumIndex]?.reason || "No recommendation available.";
-      setRecommendation(matchingRecommendation);
-
+      const matchingRecommendation =
+        recommendations[24 - albumIndex]?.reason ||
+        'No recommendation available.'
+      setRecommendation(matchingRecommendation)
     } else {
-      setSelectedAlbum(reversedAlbums[0]); // Fallback to the first album
-      setRecommendation(recommendations[0]?.reason || "No recommendation available.");
-
+      setSelectedAlbum(reversedAlbums[0]) // Fallback to the first album
+      setRecommendation(
+        recommendations[0]?.reason || 'No recommendation available.'
+      )
     }
-  }, [searchParams, reversedAlbums]);
+  }, [searchParams, reversedAlbums])
 
   const handlePrev = () => {
-    const currentIndex = reversedAlbums.indexOf(selectedAlbum);
-    const newIndex = currentIndex > 0 ? currentIndex - 1 : currentIndex;
+    const currentIndex = reversedAlbums.indexOf(selectedAlbum)
+    const newIndex = currentIndex > 0 ? currentIndex - 1 : currentIndex
 
-    setSelectedAlbum(reversedAlbums[newIndex]);
-    setSearchParams({ album: newIndex.toString() });
-  };
+    setSelectedAlbum(reversedAlbums[newIndex])
+    setSearchParams({ album: newIndex.toString() })
+  }
 
   const handleNext = () => {
-    const currentIndex = reversedAlbums.indexOf(selectedAlbum);
+    const currentIndex = reversedAlbums.indexOf(selectedAlbum)
     const newIndex =
-      currentIndex < reversedAlbums.length - 1 ? currentIndex + 1 : currentIndex;
+      currentIndex < reversedAlbums.length - 1 ? currentIndex + 1 : currentIndex
 
-    setSelectedAlbum(reversedAlbums[newIndex]);
-    setSearchParams({ album: newIndex.toString() });
-  };
+    setSelectedAlbum(reversedAlbums[newIndex])
+    setSearchParams({ album: newIndex.toString() })
+  }
 
   const spotifyId = useMemo(() => {
     const extractSpotifyId = (url: string): string | null => {
-      const regex = /https:\/\/open\.spotify\.com\/album\/([a-zA-Z0-9]+)(?:\?si=)?/;
-      const match = url.match(regex);
-      return match ? match[1] : null;
-    };
+      const regex =
+        /https:\/\/open\.spotify\.com\/album\/([a-zA-Z0-9]+)(?:\?si=)?/
+      const match = url.match(regex)
+      return match ? match[1] : null
+    }
 
     return selectedAlbum?.linkToListen
       ? extractSpotifyId(selectedAlbum.linkToListen)
-      : null;
-  }, [selectedAlbum]);
-  
+      : null
+  }, [selectedAlbum])
+
   if (!albumIndex) {
-    console.log(albumIndex);
-    return <HonorableMentions />;
+    console.log(albumIndex)
+    return <HonorableMentions />
   }
 
   return (
@@ -133,7 +137,7 @@ const AlbumList: React.FC<AlbumListProps> = ({ albums, recommendations }) => {
                 exit={{ opacity: 0, x: 50 }}
                 transition={{ duration: 0.5 }}
               >
-                {selectedAlbum.rank}. {selectedAlbum.albumName} -{" "}
+                {selectedAlbum.rank}. {selectedAlbum.albumName} -{' '}
                 {selectedAlbum.artist}
               </motion.h3>
 
@@ -145,9 +149,11 @@ const AlbumList: React.FC<AlbumListProps> = ({ albums, recommendations }) => {
                 exit={{ opacity: 0, x: -50 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
               >
-                <p className={`review ${selectedAlbum.rank === "1" ? "special-font" : ""}`}>
-                  <span className="highlight">({selectedAlbum.genre})</span> 
-                  {selectedAlbum.review.split("\n").map((line, index) => (
+                <p
+                  className={`review ${selectedAlbum.rank === '1' ? 'special-font' : ''}`}
+                >
+                  <span className="highlight">({selectedAlbum.genre})</span>
+                  {selectedAlbum.review.split('\n').map((line, index) => (
                     <React.Fragment key={index}>
                       {line}
                       <br />
@@ -156,11 +162,10 @@ const AlbumList: React.FC<AlbumListProps> = ({ albums, recommendations }) => {
                 </p>
 
                 <p className="great-if-you-like">
-                  <strong className="highlight">Great if you like:</strong> 
+                  <strong className="highlight">Great if you like:</strong>
                   {recommendation}
                 </p>
               </motion.div>
-
 
               {/* Spotify Embed */}
               {spotifyId && (
@@ -190,7 +195,7 @@ const AlbumList: React.FC<AlbumListProps> = ({ albums, recommendations }) => {
         </AnimatePresence>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AlbumList;
+export default AlbumList

@@ -1,165 +1,172 @@
-import React, { useState, useEffect } from "react";
-import { Song } from "../types";
-import LazySpotifyIframe from "./LazySpotifyIframe";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from 'react'
+import { Song } from '../types'
+import LazySpotifyIframe from './LazySpotifyIframe'
+import { motion } from 'framer-motion'
 
 const SongList: React.FC<{ songs: Song[] }> = ({ songs }) => {
-  const [selectedSongs, setSelectedSongs] = useState<{ [key: string]: boolean }>({});
-  const [spotifyToken, setSpotifyToken] = useState<string | null>(null);
-  const [modalMessage, setModalMessage] = useState<string | null>(null);
+  const [selectedSongs, setSelectedSongs] = useState<{
+    [key: string]: boolean
+  }>({})
+  const [spotifyToken, setSpotifyToken] = useState<string | null>(null)
+  const [modalMessage, setModalMessage] = useState<string | null>(null)
 
   const handleSongToggle = (song: Song) => {
     if (!spotifyToken) {
-      authenticateWithSpotify(false, "/music/songs");
-      return;
+      authenticateWithSpotify(false, '/music/songs')
+      return
     }
-  
+
     setSelectedSongs((prev) => ({
       ...prev,
-      [song.title]: !prev[song.title],
-    }));
-  };
-  
+      [song.title]: !prev[song.title]
+    }))
+  }
 
-  const authenticateWithSpotify = (reAuthenticate: boolean = false, redirectTo: string = "/music/songs") => {
-    const clientId = "271a48aad534474aa6cf785645191b1c";
-    const redirectUri = "http://localhost:3000/music/songs";
-    const scope = "playlist-modify-public";
+  const authenticateWithSpotify = (
+    reAuthenticate: boolean = false,
+    redirectTo: string = '/music/songs'
+  ) => {
+    const clientId = '271a48aad534474aa6cf785645191b1c'
+    const redirectUri = 'http://localhost:3000/music/songs'
+    const scope = 'playlist-modify-public'
     const authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&redirect_uri=${encodeURIComponent(
       redirectUri
-    )}&scope=${encodeURIComponent(scope)}&state=${encodeURIComponent(redirectTo)}`;
-  
+    )}&scope=${encodeURIComponent(scope)}&state=${encodeURIComponent(redirectTo)}`
+
     setModalMessage(
       reAuthenticate
-        ? "We had to reauthenticate you with Spotify, please try again."
-        : "We had to authenticate you with Spotify, sorry please try again."
-    );
-  
-    window.location.href = authUrl;
-  };
-  
+        ? 'We had to reauthenticate you with Spotify, please try again.'
+        : 'We had to authenticate you with Spotify, sorry please try again.'
+    )
+
+    window.location.href = authUrl
+  }
 
   const createPlaylist = async () => {
     if (!spotifyToken) {
-      authenticateWithSpotify();
-      return;
+      authenticateWithSpotify()
+      return
     }
-  
+
     try {
-      const userResponse = await fetch("https://api.spotify.com/v1/me", {
-        headers: { Authorization: `Bearer ${spotifyToken}` },
-      });
-  
+      const userResponse = await fetch('https://api.spotify.com/v1/me', {
+        headers: { Authorization: `Bearer ${spotifyToken}` }
+      })
+
       if (!userResponse.ok) {
         if (userResponse.status === 401) {
-          authenticateWithSpotify(true);
+          authenticateWithSpotify(true)
         }
-        console.error("Failed to fetch user data:", await userResponse.text());
-        return;
+        console.error('Failed to fetch user data:', await userResponse.text())
+        return
       }
-  
-      const userData = await userResponse.json();
-      const userId = userData.id;
-  
+
+      const userData = await userResponse.json()
+      const userId = userData.id
+
       const playlistResponse = await fetch(
         `https://api.spotify.com/v1/users/${userId}/playlists`,
         {
-          method: "POST",
+          method: 'POST',
           headers: {
             Authorization: `Bearer ${spotifyToken}`,
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json'
           },
           body: JSON.stringify({
             name: "Rishi's 2024 Top Songs",
             description: "Created from Rishi's web app",
-            public: true,
-          }),
+            public: true
+          })
         }
-      );
+      )
 
-  
       if (!playlistResponse.ok) {
-        console.error("Failed to create playlist:", await playlistResponse.text());
-        return;
+        console.error(
+          'Failed to create playlist:',
+          await playlistResponse.text()
+        )
+        return
       }
-  
-      const playlistData = await playlistResponse.json();
+
+      const playlistData = await playlistResponse.json()
 
       const uris = songs
         .filter((song) => selectedSongs[song.title])
-        .map((song) => `spotify:track:${song.spotifyid}`);
+        .map((song) => `spotify:track:${song.spotifyid}`)
 
-  
       const addTracksResponse = await fetch(
         `https://api.spotify.com/v1/playlists/${playlistData.id}/tracks`,
         {
-          method: "POST",
+          method: 'POST',
           headers: {
             Authorization: `Bearer ${spotifyToken}`,
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ uris }),
+          body: JSON.stringify({ uris })
         }
-      );
-  
+      )
+
       if (!addTracksResponse.ok) {
-        console.error("Failed to add tracks to playlist:", await addTracksResponse.text());
-        return;
+        console.error(
+          'Failed to add tracks to playlist:',
+          await addTracksResponse.text()
+        )
+        return
       }
-  
+
       setModalMessage(
         `Your playlist has been created. Check Spotify for 'Rishi's 2024 Top Songs'.`
-      );
+      )
     } catch (error) {
-      console.error("Error creating playlist:", error);
+      console.error('Error creating playlist:', error)
       setModalMessage(
-        "Experiencing some error with Spotify, please contact rsharma441@gmail.com."
-      );
+        'Experiencing some error with Spotify, please contact rsharma441@gmail.com.'
+      )
     }
-  };
-  
+  }
 
   useEffect(() => {
-    const hash = new URLSearchParams(window.location.hash.substring(1));
-    const token = hash.get("access_token");
-    const state = new URLSearchParams(window.location.search).get("state");
-  
+    const hash = new URLSearchParams(window.location.hash.substring(1))
+    const token = hash.get('access_token')
+    const state = new URLSearchParams(window.location.search).get('state')
+
     if (token) {
-      setSpotifyToken(token);
-      localStorage.setItem("spotifyToken", token);
-      setModalMessage("We have authenticated you with Spotify, please continue.");
-  
+      setSpotifyToken(token)
+      localStorage.setItem('spotifyToken', token)
+      setModalMessage(
+        'We have authenticated you with Spotify, please continue.'
+      )
+
       // Redirect to the original location
       if (state) {
-        window.history.replaceState({}, document.title, state);
+        window.history.replaceState({}, document.title, state)
       } else {
-        window.history.replaceState({}, document.title, "/");
+        window.history.replaceState({}, document.title, '/')
       }
     } else {
-      const storedToken = localStorage.getItem("spotifyToken");
+      const storedToken = localStorage.getItem('spotifyToken')
       if (storedToken) {
-        setSpotifyToken(storedToken);
+        setSpotifyToken(storedToken)
       }
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
-    const storedSelections = localStorage.getItem("selectedSongs");
+    const storedSelections = localStorage.getItem('selectedSongs')
     if (storedSelections) {
-      setSelectedSongs(JSON.parse(storedSelections));
+      setSelectedSongs(JSON.parse(storedSelections))
     }
-  }, []);
-  
+  }, [])
+
   useEffect(() => {
-    localStorage.setItem("selectedSongs", JSON.stringify(selectedSongs));
-  }, [selectedSongs]);
-  
-  
+    localStorage.setItem('selectedSongs', JSON.stringify(selectedSongs))
+  }, [selectedSongs])
 
   return (
     <section className="song-list">
       <div className="instructions">
-        To create your own playlist, select songs below and then click Create Playlist. You will need a Spotify account.
+        To create your own playlist, select songs below and then click Create
+        Playlist. You will need a Spotify account.
       </div>
       <div className="header">
         <button
@@ -174,8 +181,12 @@ const SongList: React.FC<{ songs: Song[] }> = ({ songs }) => {
           target="_blank"
           rel="noopener noreferrer"
           className="see-full-playlist-btn"
-          onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#e20c79")}
-          onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#3c4da2")}
+          onMouseOver={(e) =>
+            (e.currentTarget.style.backgroundColor = '#e20c79')
+          }
+          onMouseOut={(e) =>
+            (e.currentTarget.style.backgroundColor = '#3c4da2')
+          }
         >
           Full Playlist
         </a>
@@ -190,10 +201,10 @@ const SongList: React.FC<{ songs: Song[] }> = ({ songs }) => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
               style={{
-                padding: "10px",
+                padding: '10px',
                 backgroundColor: selectedSongs[song.title]
-                  ? "#3c4da2"
-                  : "transparent",
+                  ? '#3c4da2'
+                  : 'transparent'
               }}
             >
               <div>
@@ -203,20 +214,20 @@ const SongList: React.FC<{ songs: Song[] }> = ({ songs }) => {
                   onClick={() => handleSongToggle(song)}
                   style={{
                     backgroundColor: selectedSongs[song.title]
-                      ? "#e20c79"
-                      : "#3c4da2",
-                    color: "#fff",
-                    border: "none",
-                    borderRadius: "4px",
-                    cursor: "pointer",
-                    padding: "3px 8px",
-                    marginBottom: "10px",
+                      ? '#e20c79'
+                      : '#3c4da2',
+                    color: '#fff',
+                    border: 'none',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    padding: '3px 8px',
+                    marginBottom: '10px'
                   }}
                 >
-                  {selectedSongs[song.title] ? "−" : "+"}
+                  {selectedSongs[song.title] ? '−' : '+'}
                 </button>
                 <span>
-                  {" "}
+                  {' '}
                   ({song.genre}) {song.description}
                 </span>
               </div>
@@ -234,7 +245,7 @@ const SongList: React.FC<{ songs: Song[] }> = ({ songs }) => {
         </div>
       )}
     </section>
-  );
-};
+  )
+}
 
-export default SongList;
+export default SongList

@@ -1,44 +1,42 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from 'react'
 
-const LazySpotifyIframe: React.FC<{ spotifyId: string, 
-type: "album" | "track" }> = ({ spotifyId, type }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const iframeRef = useRef<HTMLDivElement | null>(null);
-  let url = "";
+const LazySpotifyIframe: React.FC<{
+  spotifyId: string
+  type: 'album' | 'track'
+}> = ({ spotifyId, type }) => {
+  const [isVisible, setIsVisible] = useState(false)
+  const iframeRef = useRef<HTMLDivElement | null>(null)
+  let url = ''
 
-
-
-    if(type === "album") {
-        url = `https://open.spotify.com/embed/album/${spotifyId}`;
-    }
-    else {
-        url = `https://open.spotify.com/embed/track/${spotifyId}`;
-    }                                   
-
+  if (type === 'album') {
+    url = `https://open.spotify.com/embed/album/${spotifyId}`
+  } else {
+    url = `https://open.spotify.com/embed/track/${spotifyId}`
+  }
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true);
+          setIsVisible(true)
         }
       },
       { threshold: 0.1 }
-    );
+    )
 
     if (iframeRef.current) {
-      observer.observe(iframeRef.current);
+      observer.observe(iframeRef.current)
     }
 
     return () => {
       if (iframeRef.current) {
-        observer.unobserve(iframeRef.current);
+        observer.unobserve(iframeRef.current)
       }
-    };
-  }, []);
+    }
+  }, [])
 
   return (
-    <div ref={iframeRef} style={{ minHeight: "80px" }}>
+    <div ref={iframeRef} style={{ minHeight: '80px' }}>
       {isVisible && (
         <iframe
           src={url}
@@ -49,7 +47,7 @@ type: "album" | "track" }> = ({ spotifyId, type }) => {
         ></iframe>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default LazySpotifyIframe;
+export default LazySpotifyIframe

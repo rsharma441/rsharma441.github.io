@@ -3,8 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.122",
     "@types/react": "^18.3.17",
@@ -16,8 +14,8 @@
     "framer-motion": "^11.15.0",
     "openai": "^4.77.0",
     "papaparse": "^5.4.1",
-    "react": "^18.3.0",
-    "react-dom": "^18.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-router-dom": "^7.1.1",
     "react-scripts": "^5.0.1",
     "typescript": "^4.9.5",
@@ -28,9 +26,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "eject": "react-scripts eject"
   },
   "browserslist": {
     "production": [
@@ -45,6 +41,10 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.5.0",
     "@types/papaparse": "^5.3.15",
     "gh-pages": "^6.2.0",
     "globals": "^15.14.0",

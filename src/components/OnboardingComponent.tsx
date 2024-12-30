@@ -22,6 +22,8 @@ const OnboardingIntro: React.FC<OnboardingProps> = ({
   const [twinkleBatch, setTwinkleBatch] = useState<string[]>([])
   const [albums, setAlbums] = useState<string[]>([])
   // const [recommendations, setRecommendations] = useState<{ rank: number; reason: string }[]>([]);
+  const [isFetchTimeout, setFetchTimeout] = useState(false) // For timeout
+  const [fetchError, setFetchError] = useState(false) // For fetch errors
 
   const navigate = useNavigate()
 
@@ -81,18 +83,18 @@ const OnboardingIntro: React.FC<OnboardingProps> = ({
 
   useEffect(() => {
     if (step === 10 && answers.length >= 3) {
+      const timeoutId = setTimeout(() => {
+        setFetchTimeout(true) // Trigger timeout state after 15 seconds
+      }, 15000)
+
       ;(async () => {
-        console.log('Fetching recommendations for answers:', answers)
-        const results = await fetchPersonalizedRecommendations(answers)
-        setRecommendations(results)
-        console.log('Final recommendations set:', results)
-        if (!results.length) {
-          console.log('No recommendations returned after fetch.')
-          setTimeout(() => {
-            console.error('Recommendations fetch timed out.')
-            // Update the UI or state to reflect the timeout/error state
-            // Potentially update the button to let user proceed or retry
-          }, 12000) // 12 seconds timeout
+        try {
+          const results = await fetchPersonalizedRecommendations(answers)
+          clearTimeout(timeoutId) // Clear timeout if fetch succeeds
+          setRecommendations(results)
+        } catch (error) {
+          clearTimeout(timeoutId) // Clear timeout if fetch fails
+          setFetchError(true) // Set fetch error state
         }
       })()
     }
@@ -426,9 +428,11 @@ const OnboardingIntro: React.FC<OnboardingProps> = ({
             className="option-btn"
             onClick={() => navigate('/music', { state: { recommendations } })}
           >
-            {recommendations.length > 0 || answers.every((a) => a.trim() === '')
-              ? "Let's go!!"
-              : 'Just waiting for our AI to work its magic...'}
+            {isFetchTimeout || fetchError
+              ? "Let's go!! (AI is down right now)"
+              : recommendations.length > 0
+                ? "Let's go!!"
+                : 'Just waiting for our AI to work its magic...'}
           </button>
         </div>
       )}

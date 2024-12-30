@@ -36,8 +36,8 @@ const App: React.FC = () => {
     <div className="animated-background">
       <div className="App">
         <main>
-        <BrowserRouter basename="/2024">
-          <Routes>
+          <BrowserRouter>
+            <Routes>
               <Route
                 path="/onboarding"
                 element={

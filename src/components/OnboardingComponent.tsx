@@ -429,7 +429,7 @@ const OnboardingIntro: React.FC<OnboardingProps> = ({
             onClick={() => navigate('/music', { state: { recommendations } })}
           >
             {isFetchTimeout || fetchError
-              ? "Let's go!! (AI is down right now)"
+              ? "Let's go!! (AI is being a little wonky)"
               : recommendations.length > 0
                 ? "Let's go!!"
                 : 'Just waiting for our AI to work its magic...'}

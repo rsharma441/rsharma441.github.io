@@ -27,7 +27,7 @@ const SongList: React.FC<{ songs: Song[] }> = ({ songs }) => {
     redirectTo: string = '/music/songs'
   ) => {
     const clientId = '271a48aad534474aa6cf785645191b1c'
-    const redirectUri = 'http://localhost:3000/music/songs'
+    const redirectUri = 'https://rsharma441-top-music.vercel.app/music/songs'
     const scope = 'playlist-modify-public'
     const authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&redirect_uri=${encodeURIComponent(
       redirectUri

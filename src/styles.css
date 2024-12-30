@@ -1,0 +1,531 @@
+/* General Body */
+body {
+  font-family: 'Manrope', sans-serif; /* Edgy and bold font for headings */
+  background-color: #242068; /* Dark Purple */
+  color: #ffffff; /* White */
+  margin: 0;
+  padding: 0;
+}
+
+/* Header */
+header {
+  /* background-color: #242068; */
+  color: #ffffff; /* White */
+  text-align: center;
+  padding: 2rem 0;
+  font-family: 'Rock Salt', cursive; /* Edgy, handwritten font */
+  font-size: 2.5rem; /* Slightly larger for impact */
+  letter-spacing: 3px; /* Add spacing for boldness */
+  text-transform: uppercase; /* All caps for added drama */
+  text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4); /* Subtle shadow for depth */
+}
+
+/* Header Gradient Text */
+header h1 {
+  font-size: 2rem;
+  margin: 0;
+  color: #ffffff; /* Base white text */
+  background: linear-gradient(to right, #e20c79, #ffffff, #3c4da2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; /* Gradient text effect */
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5); /* Shadow for extra pop */
+}
+
+/* Main Content */
+main {
+  padding: 2rem;
+}
+
+/* Sections */
+section {
+  margin: 3rem 0;
+}
+
+/* .animated-background {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(135deg, #242068, #2a2477, #1f1b5e);
+  background-size: 300% 300%;
+  animation: subtleGradient 10s ease infinite;
+}
+
+@keyframes subtleGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+} */
+
+/* Album and Song Cards */
+.album-card,
+.song-card {
+  background: #3c4da2; /* Light Purple */
+  color: #ffffff; /* White */
+  padding: 1.5rem;
+  border: 2px solid #e20c79; /* Magenta */
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+  transition:
+    transform 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out;
+}
+
+.album-card:hover,
+.song-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+}
+
+.album-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Grid Layout */
+.albums,
+.songs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 4rem;
+  padding-bottom: 4rem;
+}
+
+/* Tabs Navigation */
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  padding: 10px 20px;
+  margin: 0 5px;
+
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #fff;
+  background-color: #3c4da2;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    transform 0.2s;
+}
+
+.tab-button:hover {
+  background-color: #e20c79;
+  transform: scale(1.05);
+}
+
+.active-tab {
+  background-color: #e20c79;
+}
+
+/* CSS Updates */
+.album-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  /* padding: 16px; */
+  box-sizing: border-box;
+}
+
+.album-details {
+  flex: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 800px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.navigation-buttons {
+  display: flex;
+  justify-content: center;
+
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.carousel-button {
+  padding: 8px 16px;
+  font-family: 'Rock Salt', cursive; /* Edgy, handwritten font */
+  font-size: 1rem;
+  background: linear-gradient(135deg, #e20c79, #3c4da2);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.3s ease;
+}
+
+.carousel-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
+}
+
+.details {
+  max-width: 500px;
+  text-align: left;
+  margin: 0 auto;
+}
+
+.spotify-embed {
+  margin: 10px 0;
+}
+
+.listen-button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #e20c79;
+  color: white;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+  transition:
+    transform 0.2s ease,
+    background-color 0.3s ease;
+}
+
+.listen-button:hover {
+  background-color: #3c4da2;
+  transform: scale(1.05);
+}
+
+/* Album Cover */
+.album-cover {
+  max-width: 100%;
+  width: 500px; /* Ensure the image has a fixed width */
+  height: auto;
+  margin-bottom: 16px;
+  border: 2px solid #e20c79; /* Magenta border */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Details */
+.details {
+  max-width: 500px; /* Match the album-cover width */
+  text-align: left; /* Align text to the left */
+  margin: 0 auto; /* Center the details block */
+}
+/* Album Details */
+.details h3,
+.honorable-mentions {
+  font-family: 'Anton', sans-serif; /* Edgy and bold font */
+  font-size: 2rem;
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
+}
+.review-container {
+  position: relative;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.review-container::before {
+  content: '';
+  position: absolute;
+  top: -10px; /* Slight offset */
+  left: 20px; /* Slight offset */
+  width: 95%; /* Match the text width */
+  height: 100%; /* Match the text height */
+  background-color: #3c4da2; /* Light Purple */
+  z-index: -1; /* Place behind the text */
+}
+
+/* Individual Paragraph Styles */
+.genre {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  color: hsl(329, 90%, 47%); /* Magenta */
+}
+
+/* Highlighted Text */
+.highlight {
+  color: #e20c79; /* Magenta */
+  font-size: inherit; /* Inherit font size from parent */
+  font-family: inherit; /* Inherit font family from parent */
+  font-weight: bold; /* Bold text */
+}
+
+/* Review Text */
+.review {
+  font-family: 'Major Mono Display', monospace;
+  font-size: 1.2rem;
+  color: #ffffff; /* White */
+  margin-bottom: 10px;
+  line-height: 1.6; /* Ensure consistent line height */
+}
+
+/* Great if you like Text */
+.great-if-you-like {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1rem;
+  color: #ffffff; /* White */
+  margin-top: 10px;
+}
+
+/* Album Carousel */
+.special-font {
+  font-family: Arial, sans-serif; /* Example: Arial is generally very legible */
+  font-size: 18px; /* Adjust size as needed */
+  line-height: 1.5; /* Good for digital legibility */
+}
+
+/* Magenta Word Highlight */
+.magenta-word {
+  color: #e20c79; /* Magenta */
+  font-weight: bold;
+}
+
+.details a {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #ffffff; /* Magenta */
+  text-decoration: none;
+  padding: 10px 20px;
+  border: 2px solid #e20c79; /* Add a border for button style */
+  border-radius: 8px;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.details a:hover {
+  background-color: #e20c79; /* Magenta background */
+  color: #ffffff; /* White text */
+}
+
+/* Listen Button */
+.listen-button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #e20c79; /* Magenta */
+  color: #ffffff; /* White */
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.listen-button:hover {
+  background-color: #3c4da2; /* Light Purple */
+  transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .album-details {
+    max-width: 90%;
+  }
+
+  .album-cover {
+    width: 100%;
+  }
+
+  .details h3 {
+    font-size: 1.5rem;
+  }
+
+  .details p {
+    font-size: 0.875rem;
+  }
+
+  .carousel-button {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .album-container {
+    flex-direction: column; /* Stack items vertically for better layout */
+  }
+
+  .carousel-button {
+    font-size: 1.2rem; /* Adjust arrow size */
+  }
+
+  header {
+    font-size: 1.2rem; /* Smaller header font size */
+    padding: 0.5rem 0; /* Adjust padding */
+  }
+
+  header h1 {
+    font-size: 1.8rem; /* Reduce gradient text size */
+  }
+
+  .tabs {
+    margin-bottom: 2rem; /* Ensure proper spacing */
+  }
+}
+
+/* Song List */
+.song-list ul {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(200px, 1fr)
+  ); /* 3 columns on larger screens, 2 on mobile */
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.song-title {
+  font-family: 'Anton', sans-serif;
+  font-size: 1.2rem;
+  color: #e20c79; /* Magenta for clickable link */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.song-title:hover {
+  color: #ffffff; /* Change color on hover */
+}
+
+.song-artist {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+.song-meta {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  color: #ffffff;
+  margin-top: 4px;
+  opacity: 0.8;
+}
+
+.instructions-divider {
+  border: none;
+  height: 2px;
+  background-color: #ffffff; /* White divider */
+  margin: 16px 0; /* Space around the divider */
+}
+
+.song-divider {
+  border: none;
+  height: 1px;
+  background-color: #e20c79; /* Magenta divider */
+  margin: 16px 0; /* Space around the divider */
+}
+
+.song-list ul {
+  padding: 0;
+  margin: 0;
+}
+
+.song-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.song-item:hover {
+  background-color: #3c4da2;
+}
+
+.song-item.selected {
+  background-color: #3c4da2; /* Light purple */
+}
+
+.instructions {
+  font-size: 1rem;
+  margin-bottom: 16px;
+  color: #ffffff;
+  text-align: left;
+}
+
+.create-playlist-btn,
+.see-full-playlist-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px; /* Adjust padding for content */
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #6200ea;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  white-space: nowrap; /* Prevent wrapping */
+  margin: 10px 10px;
+}
+
+.create-playlist-btn:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+.see-full-playlist-btn {
+  background-color: #e20c79;
+}
+
+.see-full-playlist-btn:hover {
+  background-color: #d01763;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #242068;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.modal-content {
+  background: #242068;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}

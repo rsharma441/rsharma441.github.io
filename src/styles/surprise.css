@@ -1,0 +1,65 @@
+/* Add this to your styles.css */
+.surprise {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  width: 60%;
+  font-size: 24px;
+  margin-bottom: 20px;
+  justify-content: left;
+  text-align: left;
+}
+
+.recommendation {
+  width: 60%;
+  height: 350px; /* Set a fixed height, adjust based on your design needs */
+  overflow-y: auto; /* Enables vertical scrolling if content exceeds the height */
+  margin-bottom: 20px; /* Space below the recommendation area */
+  padding: 10px; /* Padding inside the recommendation area */
+  animation: fadeIn 1s ease-out; /* Fade-in animation as previously defined */
+  border: 1px solid #e20c79; /* Add a border around the recommendation area */
+  border-radius: 8px;
+}
+
+/* Keep existing animation definition */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.recommendation {
+  animation: fadeIn 1s ease-out; /* Applies the fade-in effect over 1 second */
+}
+
+.question-container {
+  width: 60%; /* Set a fixed width for the container */
+  margin-bottom: 20px;
+}
+
+textarea {
+  width: 100%;
+  min-height: 60px; /* Slightly larger text area for multiline input */
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.update-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #e20c79; /* Magenta */
+  color: #ffffff; /* White */
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+}

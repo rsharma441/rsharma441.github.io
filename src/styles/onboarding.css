@@ -1,0 +1,55 @@
+/* General Container */
+.onboarding-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #242068;
+  color: #ffffff;
+  font-family: 'Crimson Pro', sans-serif;
+  text-align: left;
+  overflow: hidden;
+}
+
+/* Message Styling */
+.onboarding-message {
+  font-size: 1.5rem;
+  line-height: 1.6;
+  max-width: 80%;
+  white-space: pre-wrap;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Highlighted Text */
+.highlight {
+  color: #e20c79;
+  font-weight: bold;
+}
+
+/* Step-1 New Text */
+.step-1-text {
+  display: inline; /* Ensure it stays inline with Step 0 */
+}
+
+.option-btn {
+  margin-right: 10px;
+  margin-top: 10px;
+  background-color: #e20c79; /* Magenta */
+  color: #fff; /* White */
+  border-radius: 4px;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px); /* Optional for a slight upward motion */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -122,7 +122,15 @@ const Onboarding: React.FC<Props> = ({
       )}
 
 
-      {phase === "processing" && <ProcessingScreen />}
+{phase === "processing" && (
+  <ProcessingScreen
+    onSkip={() => {
+      setRecommendations(null);
+      setPhase("done");
+    }}
+  />
+)}
+
     </main>
   );
 };

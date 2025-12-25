@@ -1,6 +1,6 @@
 /* @license
 Papa Parse
-v5.4.1
+v5.5.3
 https://github.com/mholt/PapaParse
 License: MIT
 */
@@ -8,9 +8,11 @@ License: MIT
 /*!
      * The buffer module from node.js, for the browser.
      *
-     * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+     * @author   Feross Aboukhadijeh <http://feross.org>
      * @license  MIT
      */
+
+/*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
 
 /**
  * @license React
@@ -53,7 +55,7 @@ License: MIT
  */
 
 /**
- * react-router v7.1.1
+ * react-router v7.11.0
  *
  * Copyright (c) Remix Software Inc.
  *

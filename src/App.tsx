@@ -1,80 +1,51 @@
 // src/App.tsx
+import React, { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import React, { useState, useEffect } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom' // Add these imports
+import YearInMusic from "./YearInMusic";
+import Onboarding from "./onboarding/Onboarding";
 
-import MusicTabs from './components/MusicTabs'
-import Onboarding from './components/OnboardingComponent'
-import './styles.css'
+import "./reset.css";
+import "./theme.css";
 
-const App: React.FC = () => {
-  const [answers, setAnswers] = useState<string[]>(() => {
-    // Retrieve answers from local storage or initialize to empty array if not available
-    const savedAnswers = localStorage.getItem('answers')
-    return savedAnswers ? JSON.parse(savedAnswers) : []
-  })
-
-  const [recommendations, setRecommendations] = useState<
-    { rank: number; reason: string }[]
-  >(() => {
-    // Retrieve recommendations from local storage or initialize to empty array if not available
-    const savedRecommendations = localStorage.getItem('recommendations')
-    return savedRecommendations ? JSON.parse(savedRecommendations) : []
-  })
-
-  // Effect to update local storage when answers change
-  useEffect(() => {
-    localStorage.setItem('answers', JSON.stringify(answers))
-  }, [answers])
-
-  // Effect to update local storage when recommendations change
-  useEffect(() => {
-    localStorage.setItem('recommendations', JSON.stringify(recommendations))
-  }, [recommendations])
-
-  return (
-    <div className="animated-background">
-      <div className="App">
-        <main>
-          <BrowserRouter>
-            <Routes>
-              <Route
-                path="/onboarding"
-                element={
-                  <Onboarding
-                    recommendations={recommendations}
-                    setRecommendations={setRecommendations}
-                    answers={answers}
-                    setAnswers={setAnswers}
-                  />
-                }
-              />
-              <Route
-                path="/music"
-                element={
-                  <MusicTabs
-                    recommendations={recommendations}
-                    answers={answers}
-                    setAnswers={setAnswers}
-                  />
-                }
-              />
-              <Route
-                path="/music/*"
-                element={
-                  <MusicTabs
-                    recommendations={recommendations}
-                    answers={answers}
-                    setAnswers={setAnswers}
-                  />
-                }
-              />
-            </Routes>
-          </BrowserRouter>
-        </main>
-      </div>
-    </div>
-  )
+interface AlbumRecommendation {
+  album: string;
+  artist: string;
+  reason: string;
 }
 
-export default App
+interface RecommendationResponse {
+  summary: string;
+  albums: AlbumRecommendation[];
+}
+
+const App: React.FC = () => {
+  const [answers, setAnswers] = useState<string[]>([]);
+  const [recommendations, setRecommendations] = useState<RecommendationResponse | null>(null);
+
+  console.log(recommendations);
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Onboarding
+              answers={answers}
+              setAnswers={setAnswers}
+              recommendations={recommendations}
+              setRecommendations={setRecommendations}
+            />
+          }
+        />
+
+        <Route
+          path="/music"
+          element={<YearInMusic />}
+        />
+      </Routes>
+    </BrowserRouter>
+  );
+};
+
+export default App;

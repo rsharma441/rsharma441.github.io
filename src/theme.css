@@ -1,0 +1,453 @@
+/* src/theme.css */
+
+/* Temporary neutral theme — we will refine this next */
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Manrope", system-ui, sans-serif;
+}
+
+main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+}
+
+
+section {
+  margin-bottom: 4rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
+
+h3 {
+  font-size: 1.2rem;
+  margin-top: 1.5rem;
+}
+
+p {
+  margin-top: 0.75rem;
+  max-width: 60ch;
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+/* src/theme.css */
+:root {
+  --bg: #0e111b;        /* midnight */
+  --ink: #f4f6fb;       /* ice */
+  --muted: #9aa4c7;     /* slate */
+  --accent: #5f6fff;   /* electric blue */
+}
+
+
+h1,
+h2 {
+  font-family: "Space Grotesk", sans-serif;
+}
+
+p,
+li,
+article {
+  font-family: "Manrope", sans-serif;
+}
+
+h1 {
+  font-size: clamp(3.5rem, 7vw, 5rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+
+
+h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 3rem;
+}
+
+h2::after {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 2px;
+  background: var(--accent);
+  margin-top: 1rem;
+}
+
+article h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+
+p {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--muted);
+  max-width: 62ch;
+  margin-top: 0.75rem;
+}
+
+
+section {
+  margin-bottom: 6rem;
+}
+
+article {
+  margin-bottom: 4rem;
+}
+
+article img {
+  margin-bottom: 1.25rem;
+}
+
+
+.section-toggle {
+  position: relative;
+  display: flex;
+  gap: 3rem;
+  margin-bottom: 4rem;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+
+  color: var(--muted);
+}
+
+.toggle-btn.active {
+  color: var(--ink);
+}
+
+.toggle-indicator {
+  position: absolute;
+  bottom: -1rem;
+  left: 0;
+  width: 48px;
+  height: 2px;
+  background: var(--accent);
+  transition: transform 0.3s ease;
+}
+
+/* move the bar */
+.toggle-indicator.albums {
+  transform: translateX(0);
+}
+
+.toggle-indicator.songs {
+  transform: translateX(200px); /* adjust based on spacing */
+}
+
+
+
+a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 2px;
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+
+.album-poster {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 3rem;
+  margin-bottom: 8rem;
+  position: relative;
+}
+
+.poster-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.poster-rank {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.poster-label {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  color: var(--muted);
+}
+
+
+.poster-body {
+  position: relative;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  column-gap: 2.5rem;
+  align-items: start;
+  padding-top: 2rem;
+}
+
+.poster-body a img {
+  display: block;
+}
+
+.poster-body a {
+  text-decoration: none;
+  border: none;
+}
+
+
+.poster-bg-word {
+  position: absolute;
+  top: -3.5rem;              /* lifted upward (see Fix 2) */
+  right: -3rem;              /* HARD right anchor */
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 6rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+  opacity: 0.035;
+
+  white-space: nowrap;       /* 🔑 prevents wrapping */
+  text-align: right;         /* keeps visual edge clean */
+
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.poster-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.poster-artist {
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.poster-line {
+  width: 48px;
+  height: 2px;
+  background: var(--accent);
+  margin: 2rem 0;
+}
+
+.poster-review {
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 55ch;
+  color: var(--muted);
+}
+
+.poster-shape {
+  position: absolute;
+  bottom: -2rem;
+  left: 30%;
+  width: 120px;
+  height: 120px;
+  border: 2px solid var(--accent);
+  opacity: 0.15;
+}
+
+
+.poster-cover {
+  width: 100%;
+  max-width: 200px;
+}
+
+.poster-cover {
+  cursor: pointer;
+}
+
+.poster-cover:hover {
+  opacity: 0.9;
+}
+.poster-cover:active {
+  opacity: 0.8;
+}
+
+.album-poster {
+  transition: transform 0.3s ease;
+}
+
+.album-poster.staggered {
+  transform: translate(80px, 40px);
+}
+
+.poster-reco {
+  margin-top: 3rem;
+  display: inline-block;
+  padding: 0.4rem 0.75rem;
+}
+
+.poster-reco-label {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-right: 0.5rem;
+}
+
+.poster-reco-text {
+  font-size: 0.8rem;
+  color: var(--ink);
+}
+
+
+
+
+.songs-block {
+  position: relative;
+  display: flex;
+  margin-top: 4rem;
+}
+
+.songs-spine {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.35em;
+  color: var(--muted);
+
+  margin-right: 3rem;
+}
+
+.songs-content {
+  position: relative;
+}
+
+.songs-list {
+  list-style: none;
+  padding: 0;
+  margin: 3rem 0 0 0;
+  max-width: 60ch;
+}
+
+.song-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+
+  margin-bottom: 0.75rem;
+
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.song-item {
+  position: relative;
+}
+
+.song-item:nth-child(5n)::before {
+  content: "";
+  position: absolute;
+  left: -2rem;
+  top: 50%;
+  width: 12px;
+  height: 2px;
+  background: var(--accent);
+}
+
+
+.song-title {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.song-sep {
+  opacity: 0.4;
+}
+
+.song-artist {
+  color: var(--muted);
+}
+
+
+
+
+.onboarding-root {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.twinkle-field {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  pointer-events: none;
+}
+
+.twinkle-item {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  font-size: 1.1rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+
+  color: var(--ink);
+  opacity: 0.6;
+
+  transform: translate(
+    calc(-50% + var(--x, 0px)),
+    calc(-50% + var(--y, 0px))
+  );
+}
+
+
+.question-subtext {
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  opacity: 0.6;
+  max-width: 50ch;
+}

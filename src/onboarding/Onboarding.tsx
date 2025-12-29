@@ -118,10 +118,39 @@ const Onboarding: React.FC<Props> = ({
           question={QUESTION}
           onSubmit={(answer) => {
             setAnswers([answer]);
-            setPhase("processing");
+
+            // Reset previous recommendations
+            setRecommendations(null);
+            // Tell the user once (non-blocking)
+            window.alert(
+              "Personalized recommendations are being generated.\n\n" +
+              "They’ll appear under “AI Personalized Recommendation” in each album shortly."
+            );
+
+            // Fire recommendations in the background
+            fetch("https://backend-crimson-grass-8357.fly.dev/get-recommendations/", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ answers: [answer] }),
+            })
+              .then(res => res.json())
+              .then(data => {
+                setRecommendations(data.recommendations);
+                localStorage.setItem(
+                  "musicRecommendations",
+                  JSON.stringify(data.recommendations)
+                );
+              })
+              .catch(() => {
+                setRecommendations(null);
+              });
+
+            // Navigate immediately (no waiting)
+            navigate("/music");
           }}
         />
       )}
+
 
 
       {phase === "processing" && (

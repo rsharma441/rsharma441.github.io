@@ -7,7 +7,7 @@ import Intro from "./sections/Intro";
 import AlbumsSection from "./sections/AlbumsSection";
 import SongsSection from "./sections/SongsSection";
 import { useLocation } from "react-router-dom";
-
+import { RecommendationResponse } from "./types";
 
 interface AlbumRecommendation {
   album: string;
@@ -15,12 +15,11 @@ interface AlbumRecommendation {
   reason: string;
 }
 
-const YearInMusic: React.FC = () => {
+const YearInMusic: React.FC<{ recommendations: RecommendationResponse | null }> = ({ recommendations }) => {
   const [albums, setAlbums] = useState<Album[]>([]);
   const [songs, setSongs] = useState<Song[]>([]);
   const [view, setView] = useState<"albums" | "songs">("albums");
   const location = useLocation();
-  const recommendations = location.state?.recommendations ?? null;
 
 const recommendationMap = React.useMemo(() => {
   if (!recommendations || !Array.isArray(recommendations.albums)) {

@@ -28,7 +28,10 @@ const [recommendations, setRecommendations] =
             />
           }
         />
-        <Route path="/music" element={<YearInMusic />} />
+        <Route
+          path="/music"
+          element={<YearInMusic recommendations={recommendations} />}
+        />
       </Routes>
     </HashRouter>
   );

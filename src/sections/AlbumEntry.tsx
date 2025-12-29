@@ -45,12 +45,18 @@ const AlbumEntry: React.FC<{ album: Album; index: number, recommendation?: strin
             <span className="poster-reco-label">GREAT IF YOU LIKE</span>
             <span className="poster-reco-text">{album.greatIfYouLike}</span>
             <br />
-            {recommendation && (
-            <div className="poster-recommendation">
-              <span className="poster-reco-label">AI PERSONALIZED RECOMMENDATIONS</span>
-              <p className="poster-reco-reason">{recommendation}</p>
-            </div>
+            {recommendation === undefined && (
+            <p className="poster-reco-pending">
+              Personalized notes are generating — check back in a moment.
+            </p>
           )}
+
+            {recommendation && (
+              <p className="poster-reco-personalized">
+                <strong>Personalized note:</strong> {recommendation}
+              </p>
+            )}
+
           </div>
 
 

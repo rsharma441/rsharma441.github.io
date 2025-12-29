@@ -54,6 +54,18 @@ const Onboarding: React.FC<Props> = ({
   const [albums, setAlbums] = useState<string[]>([]);
   const [questionIndex, setQuestionIndex] = useState(0);
 
+
+    const skipToDone = () => {
+    setRecommendations(null);
+    setPhase("done");
+  };
+
+
+  const canSkip =
+    phase === "intro" ||
+    phase === "ambient" ||
+    phase === "questions";
+
   /* Load album corpus for ambient field */
   useEffect(() => {
     fetch("/assets/full_albums.csv")
@@ -122,14 +134,25 @@ const Onboarding: React.FC<Props> = ({
       )}
 
 
-{phase === "processing" && (
-  <ProcessingScreen
-    onSkip={() => {
-      setRecommendations(null);
-      setPhase("done");
-    }}
-  />
-)}
+      {phase === "processing" && (
+        <ProcessingScreen
+          onSkip={() => {
+            setRecommendations(null);
+            setPhase("done");
+          }}
+        />
+      )}
+
+
+      {canSkip && (
+        <button
+          className="skip-onboarding"
+          onClick={skipToDone}
+        >
+          Skip
+        </button>
+      )}
+
 
     </main>
   );

@@ -25,7 +25,7 @@ const App: React.FC = () => {
 
   console.log(recommendations);
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/rsharma441.github.io">
       <Routes>
         <Route
           path="/"

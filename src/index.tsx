@@ -5,6 +5,13 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+
+const params = new URLSearchParams(window.location.search);
+const redirect = params.get("redirect");
+if (redirect) {
+  window.history.replaceState(null, "", decodeURIComponent(redirect));
+}
+
 root.render(
   <React.StrictMode>
     <App />

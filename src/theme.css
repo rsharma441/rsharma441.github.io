@@ -451,3 +451,20 @@ a:hover {
   opacity: 0.6;
   max-width: 50ch;
 }
+
+
+
+.skip-onboarding {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: none;
+  border: none;
+  opacity: 0.6;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.skip-onboarding:hover {
+  opacity: 1;
+}

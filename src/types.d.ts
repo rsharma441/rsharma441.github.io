@@ -21,3 +21,14 @@ export interface Song {
   spotifyid: string
 }
 
+
+export interface AlbumRecommendation {
+  album: string;
+  artist: string;
+  reason: string;
+}
+
+export interface RecommendationResponse {
+  summary: string;
+  albums: AlbumRecommendation[];
+}

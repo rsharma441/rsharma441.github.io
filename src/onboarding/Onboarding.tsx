@@ -9,19 +9,9 @@ import QuestionStep from "./QuestionStep";
 import ProcessingScreen from "./ProcessingScreen";
 
 import "./onboarding.css";
-
+import { RecommendationResponse } from "../types";
 type Phase = "intro" | "ambient" | "questions" | "processing" | "done";
 
-interface AlbumRecommendation {
-  album: string;
-  artist: string;
-  reason: string;
-}
-
-interface RecommendationResponse {
-  summary: string;
-  albums: AlbumRecommendation[];
-}
 
 
 interface Props {
@@ -144,7 +134,7 @@ const Onboarding: React.FC<Props> = ({
       )}
 
 
-      {canSkip && (
+      {(
         <button
           className="skip-onboarding"
           onClick={skipToDone}

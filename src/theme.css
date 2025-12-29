@@ -277,6 +277,8 @@ a:hover {
   line-height: 1.6;
   max-width: 55ch;
   color: var(--muted);
+    white-space: pre-line;
+
 }
 
 .poster-shape {
@@ -458,9 +460,7 @@ a:hover {
   position: fixed;
   bottom: 24px;
   right: 24px;
-  background: none;
   border: none;
-  opacity: 0.6;
   font-size: 0.85rem;
   cursor: pointer;
 }

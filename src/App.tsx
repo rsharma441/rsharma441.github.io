@@ -3,13 +3,16 @@ import { HashRouter, Routes, Route } from "react-router-dom";
 
 import YearInMusic from "./YearInMusic";
 import Onboarding from "./onboarding/Onboarding";
+import { RecommendationResponse } from "./types";
 
 import "./reset.css";
 import "./theme.css";
 
+
 const App: React.FC = () => {
   const [answers, setAnswers] = useState<string[]>([]);
-  const [recommendations, setRecommendations] = useState(null);
+const [recommendations, setRecommendations] =
+  useState<RecommendationResponse | null>(null);
 
   return (
     <HashRouter>

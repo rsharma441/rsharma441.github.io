@@ -1,6 +1,5 @@
-// src/App.tsx
 import React, { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 
 import YearInMusic from "./YearInMusic";
 import Onboarding from "./onboarding/Onboarding";
@@ -8,24 +7,12 @@ import Onboarding from "./onboarding/Onboarding";
 import "./reset.css";
 import "./theme.css";
 
-interface AlbumRecommendation {
-  album: string;
-  artist: string;
-  reason: string;
-}
-
-interface RecommendationResponse {
-  summary: string;
-  albums: AlbumRecommendation[];
-}
-
 const App: React.FC = () => {
   const [answers, setAnswers] = useState<string[]>([]);
-  const [recommendations, setRecommendations] = useState<RecommendationResponse | null>(null);
+  const [recommendations, setRecommendations] = useState(null);
 
-  console.log(recommendations);
   return (
-    <BrowserRouter basename="/rsharma441.github.io">
+    <HashRouter>
       <Routes>
         <Route
           path="/"
@@ -38,13 +25,9 @@ const App: React.FC = () => {
             />
           }
         />
-
-        <Route
-          path="/music"
-          element={<YearInMusic />}
-        />
+        <Route path="/music" element={<YearInMusic />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 

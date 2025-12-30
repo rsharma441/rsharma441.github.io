@@ -432,19 +432,12 @@ a:hover {
   position: absolute;
   left: 50%;
   top: 50%;
-
-  font-size: 1.1rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-
-  color: var(--ink);
-  opacity: 0.6;
-
   transform: translate(
     calc(-50% + var(--x, 0px)),
     calc(-50% + var(--y, 0px))
   );
 }
+
 
 
 .question-subtext {
@@ -468,6 +461,54 @@ a:hover {
 .skip-onboarding:hover {
   opacity: 1;
 }
+
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(14, 17, 27, 0.7);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-card {
+  background: var(--bg);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 2rem;
+  max-width: 420px;
+  width: calc(100% - 3rem);
+  border-radius: 12px;
+  text-align: left;
+}
+
+.modal-card h3 {
+  font-family: "Space Grotesk", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.modal-card p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 0.75rem;
+}
+
+.modal-btn {
+  margin-top: 1.5rem;
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-family: "Space Grotesk", sans-serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
 
 
 @media (max-width: 768px) {
